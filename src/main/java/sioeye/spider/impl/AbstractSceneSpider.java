@@ -12,13 +12,14 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import sioeye.spider.helpers.PropertyHelpers;
 import sioeye.spider.helpers.StringHelpers;
 import sioeye.spider.entities.Scenes;
 import sioeye.spider.interfaces.ISceneSpider;
 
 public class AbstractSceneSpider implements ISceneSpider {
 	
-	private static final String APIURL="http://10.120.10.55:1000/";
 	
 	/**
 	 * get接口文档html页面内容
@@ -36,7 +37,6 @@ public class AbstractSceneSpider implements ISceneSpider {
 		}
 	}
 	
-
 	public List<Scenes> getScene(String url) {
 		try {
 			String result = crawl(url);
@@ -46,7 +46,7 @@ public class AbstractSceneSpider implements ISceneSpider {
 			for (Element a : as){
 				Scenes scene = new Scenes(); 
 				scene.setSceneName(a.text());
-				scene.setSceneUrl(APIURL+new StringHelpers().getDealString(a.attr("href")));
+				scene.setSceneUrl(new PropertyHelpers().getApiDocUrl()+new StringHelpers().getDealString(a.attr("href")));
 				scenes.add(scene);
 			}
 			return scenes;
