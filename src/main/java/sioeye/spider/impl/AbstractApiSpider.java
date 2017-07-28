@@ -15,6 +15,7 @@ import org.jsoup.select.Elements;
 
 import sioeye.spider.entities.Apis;
 import sioeye.spider.helpers.PropertyHelpers;
+import sioeye.spider.helpers.SpiderHelpers;
 import sioeye.spider.interfaces.IApiSpider;
 
 public class AbstractApiSpider implements IApiSpider {
@@ -22,7 +23,7 @@ public class AbstractApiSpider implements IApiSpider {
 	@Override
 	public List<Apis> getApi(String apidocurl) {
 		try {
-			String result=crawlApi(apidocurl);
+			String result = new SpiderHelpers().crawl(apidocurl);
 			Document doc=Jsoup.parse(result);
 			//apiName,apiUrl
 			Elements apiNameUrl=doc.select(".index-list.methods li a");

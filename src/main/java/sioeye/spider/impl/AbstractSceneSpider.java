@@ -14,32 +14,16 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import sioeye.spider.helpers.PropertyHelpers;
+import sioeye.spider.helpers.SpiderHelpers;
 import sioeye.spider.helpers.StringHelpers;
 import sioeye.spider.entities.Scenes;
 import sioeye.spider.interfaces.ISceneSpider;
 
 public class AbstractSceneSpider implements ISceneSpider {
 	
-	
-	/**
-	 * get接口文档html页面内容
-	 * @param url
-	 * @return
-	 * @throws Exception
-	 */
-	protected String crawl(String url) throws Exception{
-		try(CloseableHttpClient  httpClient=HttpClientBuilder.create().build();
-			CloseableHttpResponse httpResponse=httpClient.execute(new HttpGet(url))){
-			String result=EntityUtils.toString(httpResponse.getEntity());
-			return result;
-		}catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
 	public List<Scenes> getScene(String url) {
 		try {
-			String result = crawl(url);
+			String result = new SpiderHelpers().crawl(url);
 			Document doc = Jsoup.parse(result);
 			Elements as = doc.select("#sidebar_list li a");
 			List<Scenes> scenes = new ArrayList<>();
