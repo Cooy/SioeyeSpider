@@ -3,11 +3,6 @@ package sioeye.spider.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -24,6 +19,7 @@ public class AbstractApiSpider implements IApiSpider {
 	public List<Apis> getApi(String apidocurl) {
 		try {
 			String result = new SpiderHelpers().crawl(apidocurl);
+			System.out.println(result);
 			Document doc=Jsoup.parse(result);
 			//apiName,apiUrl
 			Elements apiNameUrl=doc.select(".index-list.methods li a");
@@ -39,22 +35,7 @@ public class AbstractApiSpider implements IApiSpider {
 			}
 			return apis;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
-	/**
-	 * get接口文档html页面内容
-	 * @param apidocurl
-	 * @return
-	 * @throws Exception
-	 */
-	protected  String crawlApi(String apidocurl) throws Exception{
-		try(CloseableHttpClient  httpClient=HttpClientBuilder.create().build();
-			CloseableHttpResponse httpResponse=httpClient.execute(new HttpGet(apidocurl))){
-			String result=EntityUtils.toString(httpResponse.getEntity());
-			return result;
-		}catch (Exception e) {
+			System.out.println("获取接口列表失败");
 			throw new RuntimeException(e);
 		}
 	}

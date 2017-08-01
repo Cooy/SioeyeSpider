@@ -19,7 +19,9 @@ public class SpiderHelpers {
 			String result=EntityUtils.toString(httpResponse.getEntity());
 			return result;
 		}catch (Exception e) {
+			System.out.println("×¥È¡htmlÒ³ÃæÊ§°Ü");
 			throw new RuntimeException(e);
 		}
 	}
+	
 }
