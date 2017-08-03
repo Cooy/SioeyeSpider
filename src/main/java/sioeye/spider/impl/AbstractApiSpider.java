@@ -19,7 +19,6 @@ public class AbstractApiSpider implements IApiSpider {
 	public List<Apis> getApi(String apidocurl) {
 		try {
 			String result = new SpiderHelpers().crawl(apidocurl);
-			System.out.println(result);
 			Document doc=Jsoup.parse(result);
 			//apiName,apiUrl
 			Elements apiNameUrl=doc.select(".index-list.methods li a");
