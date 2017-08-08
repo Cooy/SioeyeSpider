@@ -12,7 +12,7 @@ public class PropertyHelpers {
 	 * @return
 	 * @throws Exception
 	 */
-	public Properties loadPro(){
+	private Properties loadPro(){
 		Properties properties = new Properties();
 		FileInputStream fis=null;
 		try {
